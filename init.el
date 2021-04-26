@@ -6,7 +6,7 @@
 ;; required to add new repositories
 ;; after adding this you have to run M-x package-list-packages
 ;; then you have to run Shift+U x to update packages with new repository
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize)
 
 ;; on the very first load this is useful to pull packages archive if there are no archive contents in the computer
@@ -32,7 +32,7 @@
  '(custom-safe-themes
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
  '(package-selected-packages
-   '(evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
+   '(scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -165,3 +165,21 @@
 
 
 ;; installed haskell-mode using MELPA package-list install functionality
+
+;; key bindings for increasing and decreasing text scalej
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
+
+
+;; orgmode for organizing life
+;; Changed default ellipsis "..." with "▼"
+(use-package org
+  :config
+  (setq org-ellipsis " ▼"))
+
+;; Replacing * with fun shapes in different org mode indentation levels
+(use-package org-bullets
+ :ensure t 
+ :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
+;; was going to add shift support but I think I prefer the C+SPACE way

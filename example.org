@@ -1,0 +1,26 @@
+* Inserted Heading using C-RET
+  
+  Here is some content!
+  Here is the [[https://orgmode.org][Org Mode hompage]]
+
+  | Name  | Age | Uses Emacs |
+  | David |  37 | YES        |
+
+** Sub-Heading
+   
+   Add some more content
+   
+* Second Header I moved this one up using M-UP
+  #+begin_src emacs-lisp
+    (defun my-elisp-func ()
+      (message "Hello!"))  
+  #+end_src
+  
+* First Heading
+
+* TODO I added this TODO heading using M-S return
+  - [ ] First item
+  - [ ] I created this one with S-M-RET
+  - [X] I marked this one with C-c C-x C-b
+    
+* DONE I changed this by "C-c C-t" to done it can also be done by S-RIGHT or S-LEFT
