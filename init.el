@@ -32,7 +32,7 @@
  '(custom-safe-themes
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
  '(package-selected-packages
-   '(scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
+   '(drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -183,3 +183,10 @@
  :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;; was going to add shift support but I think I prefer the C+SPACE way
+
+;; for easily moving lines and regions using M-up M-down
+(use-package drag-stuff
+  :ensure t
+  :config
+  (drag-stuff-global-mode 1)
+  (drag-stuff-define-keys))
