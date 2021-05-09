@@ -33,7 +33,7 @@
  '(custom-safe-themes
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
  '(package-selected-packages
-   '(company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
+   '(neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -212,11 +212,20 @@
   (setq company-tooltip-flip-when-above t)
   (global-company-mode))
 
+;; avoiding problems with lock files that emacs creates automatically
+;; e.g it was having problems while working with React
+(setq create-lockfiles nil)
 
 ;; syntax checking
 (use-package flycheck
   :config
   (global-flycheck-mode))
+
+
+;; neotree for watching tree files easily
+(use-package neotree
+  :config
+  (global-set-key [f8] 'neotree-toggle))
 
 ;; React + TypeScript settings
 
@@ -269,6 +278,12 @@
   :hook ((typescript-mode . tide-setup)
 	 (typescript-mode . tide-hl-identifier-mode)
 	 (before-save . tide-format-before-save)))
+
+;; prevent backup files from being created
+(setq make-backup-files nil)
+
+;; Wrap words according to size of emacs buffer
+(visual-line-mode t)
 
 (provide 'init)
 ;;; init ends here
