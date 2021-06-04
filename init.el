@@ -267,22 +267,26 @@
   ;; enable typescript-tslint checker
   (flycheck-add-mode 'typescript-tslint 'web-mode))
 
+;; this is for creating the configuration for formatting of TypeScript files
 (use-package typescript-mode
   :ensure t
   :config
   (setq typescript-indent-level 2)
   (add-hook 'typescript-mode #'subword-mode))
 
+;; this is for creating the configuration for formatting of JavaScript files
 (use-package js2-mode
   :ensure t
   :config
   (setq js-indent-level 2))
 
+;; this is for creating the configuration for formatting of JSON files
 (add-hook 'json-mode-hook
   (lambda ()
     (make-local-variable 'js-indent-level)
     (setq js-indent-level 2)))
 
+;; this helps creating a dynamic environment for working in TypeScript with advanced features like type checking, inspection and showing errors
 (use-package tide
   :init
   :ensure t
