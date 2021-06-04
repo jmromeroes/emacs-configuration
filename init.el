@@ -32,8 +32,10 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
+ '(haskell-mode-hook
+   '(flyspell-prog-mode haskell-indentation-mode highlight-uses-mode interactive-haskell-mode))
  '(package-selected-packages
-   '(neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
+   '(javascript-mode flymake-haskell-multi neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -270,6 +272,16 @@
   :config
   (setq typescript-indent-level 2)
   (add-hook 'typescript-mode #'subword-mode))
+
+(use-package js2-mode
+  :ensure t
+  :config
+  (setq js-indent-level 2))
+
+(add-hook 'json-mode-hook
+  (lambda ()
+    (make-local-variable 'js-indent-level)
+    (setq js-indent-level 2)))
 
 (use-package tide
   :init
