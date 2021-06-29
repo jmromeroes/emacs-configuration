@@ -196,13 +196,15 @@
 
 
 ;; mark down mode
+;; I installed pandoc and the binary is located at usr/bin/pandoc
+;; so I use it as the main markdown-command
 (use-package markdown-mode
   :ensure t
   :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "/usr/bin/pandoc"))
 
 ;; library for buffer oriented auto completion
 (use-package company
