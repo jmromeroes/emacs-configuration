@@ -24,24 +24,46 @@
 ;; when you wanna make sure that all packages you'll use are installed before they are run
 (setq use-package-always-ensure t)
 
+;; installing lsp-mode
+(use-package lsp-mode)
+
+;; installing haskell mode
+(use-package haskell-mode)
+
+;; haskell indentation
+(use-package hindent)
+(add-hook 'haskell-mode-hook #'hindent-mode)
+(add-hook 'haskell-literate-mode-hook #'lsp)
+(add-hook 'haskell-mode-hook #'lsp)
+(add-hook 'haskell-literate-mode-hook #'lsp)
+
+;; installing kotlin-mode
+(use-package kotlin-mode)
+
 ;;added automatically
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
+ '(custom-enabled-themes '(gruvbox-dark-medium))
  '(custom-safe-themes
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
+ '(global-display-line-numbers-mode t)
  '(haskell-mode-hook
    '(flyspell-prog-mode haskell-indentation-mode highlight-uses-mode interactive-haskell-mode))
+ '(ispell-dictionary nil)
  '(package-selected-packages
-   '(javascript-mode flymake-haskell-multi neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme)))
+   '(crux sunrise sunrise-commander bm helm-swoop minimap lsp-mode haskell-mode js2-mode flycheck multiple-cursors magit counsel-projectile projectile all-the-icons javascript-mode flymake-haskell-multi neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme))
+ '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Fira Mono" :foundry "CTDB" :slant normal :weight normal :height 113 :width normal)))))
 
 ;; load-theme requires you to install the theme package
 ;; this one was installed through melpa
@@ -71,7 +93,7 @@
   :config
   (ivy-mode 1))
 
-;; I also installed consel through package-install
+;; I also installed counsel through package-install
 (use-package counsel)
 
 ;; for showing the icons in different packages like doom-modeline or neotree
@@ -147,14 +169,14 @@
   :config (projectile-mode)
   :custom (projectile-completion-system 'ivy)
   :init
-  (when (file-directory-p "~/projects/")
-    (setq projectile-project-search-path '("~/projects")))
+  (when (file-directory-p "~/Documents/")
+    (setq projectile-project-search-path '("~/Documents/")))
   (setq projectile-switch-project-action #'projectile-dired))
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;; some more integration between ivy counsel and projectile for navigating easily in projects
 (use-package counsel-projectile
-  :config (counsel-projectile-mode))
+ :config (counsel-projectile-mode))
 
 ;; easy git management for projects
 (use-package magit)
@@ -303,5 +325,19 @@
 ;; Wrap words according to size of emacs buffer
 (visual-line-mode t)
 
+;; setting transparency to emacs window
+(set-frame-parameter (selected-frame) 'alpha '(97 97))
+(add-to-list 'default-frame-alist '(alpha 97 97))
+
+;; adding minimap to have better scope of clode globally
+(use-package minimap)
+
+;; add bookmarks management system to emacs 
+(use-package bm)
+
+;; CRUX: A Collection of Ridiculously Useful eXtensions for Emacs
+(use-package crux)
+
 (provide 'init)
 ;;; init ends here
+
