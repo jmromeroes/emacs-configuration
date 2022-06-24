@@ -25,17 +25,42 @@
 (setq use-package-always-ensure t)
 
 ;; installing lsp-mode
-(use-package lsp-mode)
+(use-package lsp-mode
+  :ensure t)
+
+(use-package lsp-ivy)
+
+(use-package flycheck
+  :ensure t
+  :init (global-flycheck-mode))
+
+(use-package company
+  :ensure t
+  :init
+  (add-hook 'after-init-hook 'global-company-mode)
+  )
 
 ;; installing haskell mode
-(use-package haskell-mode)
+;; configuring hoogle and lsp-mode
+(use-package haskell-mode
+  :ensure t
+  :defer t
+  :init
+   (use-package lsp-haskell
+     :ensure t
+     :after lsp
+     :config (message "Loaded lsp-haskell"))
 
-;; haskell indentation
-(use-package hindent)
-(add-hook 'haskell-mode-hook #'hindent-mode)
-(add-hook 'haskell-literate-mode-hook #'lsp)
-(add-hook 'haskell-mode-hook #'lsp)
-(add-hook 'haskell-literate-mode-hook #'lsp)
+   (require 'lsp)
+   (require 'lsp-haskell)
+   (add-hook 'haskell-mode-hook #'lsp)
+   (add-hook 'haskell-mode-hook #'haskell-decl-scan-mode)
+   (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+  :bind (:map haskell-mode-map
+   ("C-c h" . hoogle)
+   ("C-c s" . haskell-mode-stylish-buffer))
+  :config
+     (message "Loaded haskell-mode"))
 
 ;; installing kotlin-mode
 (use-package kotlin-mode)
@@ -53,10 +78,10 @@
    '("7661b762556018a44a29477b84757994d8386d6edee909409fabe0631952dad9" default))
  '(global-display-line-numbers-mode t)
  '(haskell-mode-hook
-   '(flyspell-prog-mode haskell-indentation-mode highlight-uses-mode interactive-haskell-mode))
+   '(flyspell-prog-mode haskell-indentation-mode highlight-uses-mode interactive-haskell-mode) t)
  '(ispell-dictionary nil)
  '(package-selected-packages
-   '(crux sunrise sunrise-commander bm helm-swoop minimap lsp-mode haskell-mode js2-mode flycheck multiple-cursors magit counsel-projectile projectile all-the-icons javascript-mode flymake-haskell-multi neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme))
+   '(dhall-mode yaml-mode company-mode lsp-ivy lsp-haskell crux sunrise sunrise-commander bm helm-swoop minimap lsp-mode haskell-mode js2-mode flycheck multiple-cursors magit counsel-projectile projectile all-the-icons javascript-mode flymake-haskell-multi neotree company markdown-mode auto-org-md drag-stuff scss-mode org-bullets evil general helpful ivy-rich which-key rainbow-delimiters tide typescript-mode rjsx-mode web-mode anaconda-mode doom-modeline counsel ivy use-package gruvbox-theme))
  '(show-paren-mode t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -188,8 +213,6 @@
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
-
-;; installed haskell-mode using MELPA package-list install functionality
 
 ;; key bindings for increasing and decreasing text scalej
 (global-set-key (kbd "C-+") 'text-scale-increase)
@@ -337,6 +360,7 @@
 
 ;; CRUX: A Collection of Ridiculously Useful eXtensions for Emacs
 (use-package crux)
+
 
 (provide 'init)
 ;;; init ends here
